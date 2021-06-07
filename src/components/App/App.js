@@ -47,8 +47,21 @@ function App() {
       }
     }
 
-    
-  })
+    // use initial state
+    handleNewMeetingState();
+
+    // Listen for changes in state
+    for (const event of events) {
+      callObject.on(event, handleNewMeetingState);
+    }
+
+    // Stop listening for changes in state
+    return function cleanup() {
+      for (const event of events) {
+        callObject.off(event, handleNewMeetingState);
+      }
+    }
+  }, [callObject]);
 
   return (
     <div className="App">
