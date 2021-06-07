@@ -79,7 +79,7 @@ function App() {
        <h1>GHULAM SPIN</h1>
         <img src={logo} className="App-logo" alt="logo" />
        <h1>GHULAM SPIN</h1>
-       <span>{lottaFlips()}</span>
+       <span style={{margin: '0 500px 0 500px'}}>{lottaFlips()}</span>
       </header>
     </div>
   );
