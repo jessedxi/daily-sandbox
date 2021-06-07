@@ -63,12 +63,23 @@ function App() {
     }
   }, [callObject]);
 
+  const lottaFlips = () => {
+    let i = 0
+    let output = "";
+    while (i < 500) {
+      output += "Flip flip Flip "
+      i++
+    }
+    return output;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
        <h1>GHULAM SPIN</h1>
         <img src={logo} className="App-logo" alt="logo" />
        <h1>GHULAM SPIN</h1>
+       <span>{lottaFlips()}</span>
       </header>
     </div>
   );
