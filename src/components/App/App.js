@@ -27,6 +27,25 @@ function App() {
         setAppState(STATE_IDLE);
       });
   }, []);
+
+  /**
+   * Starts joining an existing call.
+   *
+   * NOTE: In this demo we show how to completely clean up a call with destroy(),
+   * which requires creating a new call object before you can join() again.
+   * This isn't strictly necessary, but is good practice when you know you'll
+   * be done with the call object for a while and you're no longer listening to its
+   * events.
+   */
+
+  const startJoiningCall = useCallback((url) => {
+    const newCallObject = DailyIframe.createCallObject();
+    setRoomUrl(url);
+    setCallObject(newCallObject);
+    setAppState(STATE_JOINING);
+    newCallObject.join({ url });
+  }, []);
+
   // Meeting State represents where the user is in the lifecycle of their participation in a call.
   // This useEffect function updates the meeting state:
 
