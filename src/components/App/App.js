@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import logo from "../../Ghulam.png";
 import "./App.css";
 import DailyIframe from "@daily-co/daily-js";
+import api from "../../api";
 
 const STATE_IDLE = "STATE_IDLE";
 const STATE_CREATING = "STATE_CREATING";
@@ -15,6 +16,17 @@ function App() {
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
 
+  const createCall = useCallback(() => {
+    setAppState(STATE_CREATING);
+    return api
+      .createRoom()
+      .then((room) => room.url)
+      .catch((error) => {
+        console.log("Error creating room", error);
+        setRoomUrl(null);
+        setAppState(STATE_IDLE);
+      });
+  }, []);
   // Meeting State represents where the user is in the lifecycle of their participation in a call.
   // This useEffect function updates the meeting state:
 
