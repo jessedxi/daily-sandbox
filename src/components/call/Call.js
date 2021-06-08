@@ -21,5 +21,20 @@ export default function Call() {
         participants: callOBject.participants(),
       });
     }
-  });
+
+    //Use initial state
+    handleNewParticipantsState();
+
+    //Listen for changes in state
+    for (const event of events) {
+      callObject.on(event, handleNewParticipantsState);
+    }
+
+    //Stop Listening for changes in state
+    return function cleanup() {
+      for (const event of events) {
+        callObject.off(event, handleNewParticipantsState);
+      }
+    };
+  }, [callObject]);
 }
