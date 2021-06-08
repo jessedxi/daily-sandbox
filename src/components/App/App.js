@@ -112,6 +112,32 @@ function App() {
     };
   }, [callObject]);
 
+  /**
+   * Only enable the call buttons (camera toggle, leave call, etc.) if we're joined
+   * or if we've errored out.
+   *
+   * !!!
+   * IMPORTANT: calling callObject.destroy() *before* we get the "joined-meeting"
+   * can result in unexpected behavior. Disabling the leave call button
+   * until then avoids this scenario.
+   * !!!
+   */
+
+  const enableCallButtons = [STATE_JOINED, STATE_ERROR].includes(appState);
+
+  /**
+   * Only enable the start button if we're in an idle state (i.e. not creating,
+   * joining, etc.).
+   *
+   * !!!
+   * IMPORTANT: only one call object is meant to be used at a time. Creating a
+   * new call object with DailyIframe.createCallObject() *before* your previous
+   * callObject.destroy() completely finishes can result in unexpected behavior.
+   * Disabling the start button until then avoids that scenario.
+   * !!!
+   */
+  const enableStartButton = appState === STATE_IDLE;
+
   const lottaFlips = () => {
     let i = 0;
     let output = "";
