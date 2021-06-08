@@ -46,6 +46,25 @@ function App() {
     newCallObject.join({ url });
   }, []);
 
+  /**
+   * starts leaving current call.
+   */
+
+  const startLeavingCall = useCallback(() => {
+    if (!callObject) return;
+    // If we're in the error state, we've already "left", so just clean up
+    if (appState === STATE_ERROR) {
+      callObject.destroy().then(() => {
+        setRoomUrl(null);
+        setCallObject(null);
+        setAppState(STATE_IDLE);
+      });
+    } else {
+      setAppState(STATE_LEAVING);
+      callObject.leave();
+    }
+  }, [callObject, appState]);
+
   // Meeting State represents where the user is in the lifecycle of their participation in a call.
   // This useEffect function updates the meeting state:
 
