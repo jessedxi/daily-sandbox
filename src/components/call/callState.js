@@ -89,3 +89,19 @@ function getCallItems(participants) {
   }
   return callItems;
 }
+
+function shouldIncludeScreenCallItem(participant) {
+  const trackStatesForInclusion = ["loading", "playable", "interrupted"];
+  return (
+    trackStatesForInclusion.includes(participant.tracks.screenVideo.state) ||
+    trackStatesForInclusion.includes(participant.tracks.screenAudio.state)
+  );
+}
+
+// --- Derived Data ---
+
+// True if id corresponds to local participant (*not* their screen to share)
+
+function isLcoal(id) {
+  return id.endsWith("-screen");
+}
