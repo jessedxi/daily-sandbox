@@ -63,7 +63,16 @@ export default function Tile(props) {
     return getTrackUnavailableMessage('audio', props.audioTrackState)
   }, [props.audioTrackState])
 
-  // THERE'S SOME USEEFFECT SHIT THAT GOES HERE (about line 65 in source code)
+// When video track changes, update video srcObject
+  useEffect(() => {
+    videoEl.current && (videoEl.current.srcObject = new MediaStream([videoTrack]))
+  }, [videoTrack]);
+  
+  // When audio track changes, update audio srcObject
+  useEffect(() => {
+    audioEl.current && (audioEl.current.srcObject = new MediaStream([audioTrack]))
+  }, [audioTrack]);
+  
 
   function getVideoComponent() {
     return videoTrack && <video autoPlay muted playsInline ref={videoEl} />
@@ -74,6 +83,8 @@ export default function Tile(props) {
       !props.isLocalPerson && audioTrack && <audio autoPlay playsInline ref={audioEl} />
     )
   }
+
+  // SOME getComponent FUNCTIONS GO HERE!
 
   function getClassNames() {
     let classNames = 'tile';
