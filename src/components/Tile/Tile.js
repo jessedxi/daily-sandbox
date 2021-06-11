@@ -1,7 +1,34 @@
 import React, {useEffect, useMemo, useRef } from 'react';
 
 
-
+function getTrackUnavailableMessage(kind, trackState) {
+  if (!trackState) return;
+  // eslint-disable-next-line default-case
+  switch (trackState.state) {
+    case 'blocked':
+      if (trackState.blocked.byPermissions) {
+        return `${kind} permission denied`;
+      } else if (trackState.blocked.byDeviceMissing) {
+        return `${kind} device missing`;
+      }
+      return `${kind} blocked`;
+    case 'off': 
+    if (trackState.off.byUser) {
+      return `${kind} muted`;
+    } else if (trackState.off.byBandwith) {
+      return `${kind} muted to save bandwith`;
+    }
+    return `${kind} off`;
+    case 'sendable':
+      return `${kind} not subscribed`;
+    case 'loading':
+      return `${kind} loading...`;
+    case 'interrupted':
+      return `${kind} interrupted`;
+    case `playable`:
+      return null;
+  }
+}
 
 
 /**
