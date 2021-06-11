@@ -54,7 +54,8 @@ export default function Call() {
   const sendHello = useCallback(
     (participantId) => {
       callObject && callObject.sendAppMessage({hello: 'world'}, participantId)
-    }
+    },
+    [callObject]
   )
 
 
@@ -65,7 +66,7 @@ export default function Call() {
       const isLarge =
       isScreenShare(id) ||
       (!isLocal(id) && !containsScreenShare(callState.callItems));
-      const title = (
+      const tile = (
         <Tile
           key={id}
           videoTrackState={callItem.videoTrackState}
@@ -80,8 +81,14 @@ export default function Call() {
               sendHello(id)
             }
           }
-        ></Tile>
-      )
-    })
+        />
+      );
+      if (isLarge) {
+        largeTiles.push(tile);
+      } else {
+        smallTiles.push(tile);
+      }
+    });
+    return [largeTiles, smallTiles]
   }
 }
