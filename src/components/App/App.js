@@ -4,7 +4,7 @@ import "./App.css";
 import DailyIframe from "@daily-co/daily-js";
 import api from "../../api";
 
-const STATE_IDLE = "STATE_IDLE";
+const STATE_IDLE = "STATE_IDLE"; 
 const STATE_CREATING = "STATE_CREATING";
 const STATE_JOINING = "STATE_JOINING";
 const STATE_JOINED = "STATE_JOINED";
