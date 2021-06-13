@@ -81,4 +81,28 @@ export default function Tray(props) {
    * Start listening for participant changes when callObject is set (i.e. when the component mounts).
    * This event will capture any changes to your audio/video mute state.
    */
+
+  useEffect(() => {
+    if (!callObject) return;
+
+    function handleNewParticipantsState(event) {
+      //event && logDailyEvent(event);
+      const [isCameraMuted, isMicMuted, isSharingScreen] =
+        getStreamStates(callObject);
+      setCameraMuted(isCameraMuted);
+      setMicMuted(isMicMuted);
+      setSharingScreen(isSharingScreen);
+    }
+
+    // Use initial state
+    handleNewParticipantsState();
+
+    // Listen for changes in state
+    callObject.on("particioant-updated", handleNewParticipantsState);
+
+    // Stop listening for changes in state
+    return function cleanup() {
+      callObject.off("participant-updated", handleNewParticipantsState);
+    };
+  }, [callObject]);
 }
