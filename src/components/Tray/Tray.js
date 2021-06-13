@@ -65,4 +65,20 @@ export default function Tray(props) {
   function leaveCall() {
     props.onClickLeaveCall && props.onClickLeaveCall();
   }
+
+  function toggleChat() {
+    setChatDisplay(!displayChat);
+    if (highlightedChat) {
+      setChatHighlight(!highlightedChat);
+    }
+  }
+
+  function handleNewChat() {
+    setChatHighlight(!highlightedChat);
+  }
+
+  /**
+   * Start listening for participant changes when callObject is set (i.e. when the component mounts).
+   * This event will capture any changes to your audio/video mute state.
+   */
 }
