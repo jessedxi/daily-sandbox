@@ -39,3 +39,30 @@ function getStreamStates(callObject) {
  * - onClickLeaveCall: () => ()
  * - disabled: boolean
  */
+
+export default function Tray(props) {
+  const callObject = useContext(CallObjectContext);
+  const [isCameraMuted, setCameraMuted] = useState(false);
+  const [isMicMuted, setMicMuted] = useState(false);
+  const [isSharingScreen, setSharingScreen] = useState(false);
+  const [displayChat, setChatDisplay] = useState(false);
+  const [highlightChat, setChatHighlight] = useState(false);
+
+  function toggleCamera() {
+    callObject.setLocalVideo(isCameraMuted);
+  }
+
+  function toggleMic() {
+    callObject.setLocalAudio(isMicMuted);
+  }
+
+  function toggleSharingScreen() {
+    isSharingScreen
+      ? callObject.stopScreenShare()
+      : callObject.startScreenShare();
+  }
+
+  function leaveCall() {
+    props.onClickLeaveCall && props.onClickLeaveCall();
+  }
+}
