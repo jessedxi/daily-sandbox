@@ -102,7 +102,7 @@ function shouldIncludeScreenCallItem(participant) {
 
 // True if id corresponds to local participant (*not* their screen to share)
 
-function isLcoal(id) {
+function isLocal(id) {
   return id === "local";
 }
 
@@ -148,7 +148,7 @@ export {
   CAM_OR_MIC_ERROR,
   FATAL_ERROR,
   callReducer,
-  isLcoal,
+  isLocal,
   isScreenShare,
   containsScreenShare,
   getMessage,
