@@ -46,7 +46,7 @@ export default function Tray(props) {
   const [isMicMuted, setMicMuted] = useState(false);
   const [isSharingScreen, setSharingScreen] = useState(false);
   const [displayChat, setChatDisplay] = useState(false);
-  const [highlightChat, setChatHighlight] = useState(false);
+  const [highlightedChat, setChatHighlight] = useState(false);
 
   function toggleCamera() {
     callObject.setLocalVideo(isCameraMuted);
